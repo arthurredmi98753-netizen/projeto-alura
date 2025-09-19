@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Legends - Site Acessível</title>
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #ff5500;
+            --text-color: #f5f5f5;
+            --background-color: #2d2d2d;
+            --font-size: 16px;
+            --font-family: 'Arial', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--secondary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a:focus {
+            color: var(--secondary-color);
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 4px;
+        }
+
+        .accessibility-controls {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover, button:focus {
+            background-color: #e64a19;
+            outline: 2px solid white;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23333"/><text x="50%" y="50%" font-size="20" text-anchor="middle" fill="%23ff5500" dominant-baseline="middle">🎸</text></svg>');
+            background-size: cover;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .bands-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .bands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .band-card {
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .band-card:hover, .band-card:focus-within {
+            transform: translateY(-5px);
+        }
+
+        .band-card:focus-within {
+            outline: 2px solid var(--secondary-color);
+        }
+
+        .band-image {
+            width: 100%;
+            height: 200px;
+            background-color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .band-info {
+            padding: 1.5rem;
+        }
+
+        .band-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .band-info p {
+            margin-bottom: 1rem;
+        }
+
+        .band-link {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .band-link:hover, .band-link:focus {
+            background-color: #e64a19;
+            outline: 2px solid white;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover, .social-links a:focus {
+            color: var(--secondary-color);
+            outline: none;
+        }
+
+        /* Classes para tamanhos de fonte */
+        .font-small {
+            --font-size: 14px;
+            font-size: var(--font-size);
+        }
+
+        .font-medium {
+            --font-size: 16px;
+            font-size: var(--font-size);
+        }
+
+        .font-large {
+            --font-size: 18px;
+            font-size: var(--font-size);
+        }
+
+        .font-xlarge {
+            --font-size: 20px;
+            font-size: var(--font-size);
+        }
+
+        /* Alto contraste */
+        .high-contrast {
+            --primary-color: #000000;
+            --secondary-color: #ffff00;
+            --text-color: #ffffff;
+            --background-color: #000000;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                display: none;
+            }
+            
+            .nav-links.show {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Foco visível para todos os elementos focáveis */
+        *:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="font-medium">
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+    
+    <header>
+        <nav aria-label="Navegação principal">
+            <div class="logo">Rock Legends</div>
+            <button class="menu-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#bandas">Bandas</a></li>
+                <li><a href="#historia">História</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+        
+        <div class="accessibility-controls" aria-label="Controles de acessibilidade">
+            <button id="font-decrease" aria-label="Diminuir tamanho da fonte">A-</button>
+            <button id="font-reset" aria-label="Tamanho normal da fonte">A</button>
+            <button id="font-increase" aria-label="Aumentar tamanho da fonte">A+</button>
+            <button id="high-contrast" aria-pressed="false" aria-label="Ativar modo de alto contraste">Alto Contraste</button>
+        </div>
+    </header>
+    
+    <main id="main-content" tabindex="-1">
+        <section id="inicio" class="hero">
+            <h1>Rock Legends</h1>
+            <p>Explore as maiores bandas de rock de todos os tempos</p>
+        </section>
+        
+        <section id="bandas" class="bands-section">
+            <h2 class="section-title">Principais Bandas</h2>
+            
+            <div class="bands-grid">
+                <article class="band-card" tabindex="0">
+                    <div class="band-image">🎸</div>
+                    <div class="band-info">
+                        <h3>The Beatles</h3>
+                        <p>Banda britânica de rock formada em Liverpool em 1960, frequentemente considerada a mais influente de todos os tempos.</p>
+                        <a href="#beatles" class="band-link">Saiba mais</a>
+                    </div>
+                </article>
+                
+                <article class="band-card" tabindex="0">
+                    <div class="band-image">🤘</div>
+                    <div class="band-info">
+                        <h3>Led Zeppelin</h3>
+                        <p>Banda britânica de rock formada em Londres em 1968, conhecida por suas composições complexas e inovadoras.</p>
+                        <a href="#led-zeppelin" class="band-link">Saiba mais</a>
+                    </div>
+                </article>
+                
+                <article class="band-card" tabindex="0">
+                    <div class="band-image">🎤</div>
+                    <div class="band-info">
+                        <h3>Queen</h3>
+                        <p>Banda britânica de rock formada em 1970, conhecida por suas performances energéticas e vocais poderosos.</p>
+                        <a href="#queen" class="band-link">Saiba mais</a>
+                    </div>
+                </article>
+                
+                <article class="band-card" tabindex="0">
+                    <div class="band-image">⭐</div>
+                    <div class="band-info">
+                        <h3>David Bowie</h3>
+                        <p>Cantor, compositor e ator britânico, frequentemente citado como um dos músicos mais influentes do século XX.</p>
+                        <a href="#bowie" class="band-link">Saiba mais</a>
+                    </div>
+                </article>
+                
+                <article class="band-card" tabindex="0">
+                    <div class="band-image">🎹</div>
+                    <div class="band-info">
+                        <h3>Pink Floyd</h3>
+                        <p>Banda britânica de rock formada em Londres, conhecida por sua música psicodélica e apresentações ao vivo elaboradas.</p>
+                        <a href="#pink-floyd" class="band-link">Saiba mais</a>
+                    </div>
+                </article>
+                
+                <article class="band-card" tabindex="0">
+                    <div class="band-image">🔥</div>
+                    <div class="band-info">
+                        <h3>The Rolling Stones</h3>
+                        <p>Banda britânica de rock formada em Londres em 1962, uma das mais duradouras e bem-sucedidas da história do rock.</p>
+                        <a href="#rolling-stones" class="band-link">Saiba mais</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+        
+        <section id="historia" class="history-section">
+            <h2 class="section-title">História do Rock</h2>
+            <p>O rock and roll emergiu nos Estados Unidos no final dos anos 1940 e início dos anos 1950, originando-se de estilos musicais afro-americanos como gospel, rhythm and blues e country. Rapidamente se espalhou pelo mundo, evoluindo para diversos subgêneros e tornando-se um fenômeno cultural global.</p>
+            <p>Ao longo das décadas, o rock influenciou e foi influenciado por mudanças sociais, políticas e tecnológicas, refletindo e moldando atitudes em relação a raça, sexualidade e identidade juvenil.</p>
+        </section>
+    </main>
+    
+    <footer id="contato">
+        <div class="social-links">
+            <a href="#" aria-label="Facebook"><span>f</span></a>
+            <a href="#" aria-label="Twitter"><span>t</span></a>
+            <a href="#" aria-label="Instagram"><span>i</span></a>
+            <a href="#" aria-label="YouTube"><span>y</span></a>
+        </div>
+        <p>&copy; 2023 Rock Legends - Todos os direitos reservados</p>
+        <p>Site desenvolvido com foco em acessibilidade</p>
+    </footer>
+
+    <script>
+        // Controles de acessibilidade
+        document.getElementById('font-decrease').addEventListener('click', function() {
+            document.body.classList.remove('font-medium', 'font-large', 'font-xlarge');
+            document.body.classList.add('font-small');
+        });
+        
+        document.getElementById('font-reset').addEventListener('click', function() {
+            document.body.classList.remove('font-small', 'font-large', 'font-xlarge');
+            document.body.classList.add('font-medium');
+        });
+        
+        document.getElementById('font-increase').addEventListener('click', function() {
+            document.body.classList.remove('font-small', 'font-medium', 'font-xlarge');
+            document.body.classList.add('font-large');
+        });
+        
+        document.getElementById('font-increase').addEventListener('dblclick', function() {
+            document.body.classList.remove('font-small', 'font-medium', 'font-large');
+            document.body.classList.add('font-xlarge');
+        });
+        
+        const contrastButton = document.getElementById('high-contrast');
+        contrastButton.addEventListener('click', function() {
+            document.body.classList.toggle('high-contrast');
+            const isPressed = document.body.classList.contains('high-contrast');
+            this.setAttribute('aria-pressed', isPressed);
+        });
+        
+        // Menu mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', function() {
+            const expanded = this.getAttribute('aria-expanded') === 'true' || false;
+            this.setAttribute('aria-expanded', !expanded);
+            navLinks.classList.toggle('show');
+        });
+        
+        // Foco em elementos internos ao navegar com teclado
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.setAttribute('tabindex', '-1');
+                    target.focus();
+                    window.scrollTo({
+                        top: target.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
